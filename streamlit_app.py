@@ -275,7 +275,7 @@ elif option == "Prédiction par identifiant":
     train_data = load_data()
     
     if not train_data.empty:
-        st.markdown("Exemples d'identifiants: 163956, 339432")
+        st.markdown("Exemples d'identifiants: de 100002 à 100060")
         
         # Champ et bouton sur la même ligne
         col1, col2 = st.columns([2, 2])
@@ -284,7 +284,7 @@ elif option == "Prédiction par identifiant":
             client_id = st.text_input(
                 "Identifiant client",
                 value="",
-                placeholder="Ex: 163956"
+                placeholder="Ex: 100002"
             )
         
         with col2:
