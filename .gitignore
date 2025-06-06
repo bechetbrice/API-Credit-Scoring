@@ -1,0 +1,32 @@
+﻿# Environnements Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+.venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Exclure data sauf fichiers spécifiques
+data/
+!data/processed/
+data/processed/*
+!data/processed/train_preprocessed_sample.csv
+!data/processed/final_features_list.json
+
+# MLflow (exclure complètement)
+mlruns/
+mlartifacts/
+
+# Développement
+notebooks/
+tests/
+*_OLD.py
+*.backup
+
+# OS et éditeurs
+.DS_Store
+.vscode/
