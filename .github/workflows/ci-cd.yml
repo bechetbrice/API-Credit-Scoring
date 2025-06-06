@@ -1,0 +1,54 @@
+name: CI/CD API Credit Scoring
+
+# Declencher sur push vers main
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v3
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Installation des dependances
+      run: |
+        pip install --upgrade pip
+        pip install pytest
+        pip install flask pandas numpy scikit-learn lightgbm shap joblib
+    
+    - name: Execution des tests unitaires
+      run: |
+        python -m pytest tests/ -v
+    
+    - name: Verification structure API
+      run: |
+        python -c "from api.app_production import app; print('API importee avec succes')"
+
+  deploy-railway:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v3
+    
+    - name: Deploiement automatique Railway
+      run: |
+        echo "Tests passes - Deploiement sur Railway"
+        echo "API sera deployee sur Railway automatiquement"
+        echo "Dashboard Streamlit sera deploye sur Streamlit Cloud"
+    
+    - name: Verification des fichiers de deploiement
+      run: |
+        ls -la
+        echo "Procfile present:" && cat Procfile
+        echo "Requirements present:" && head -5 requirements.txt
