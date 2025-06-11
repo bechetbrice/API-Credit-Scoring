@@ -1,0 +1,1 @@
+﻿web: cd api && gunicorn --config gunicorn.conf.py app_production_optimized:app

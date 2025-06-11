@@ -1,0 +1,41 @@
+﻿# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data source volumineuse uniquement
+data/source/
+data/raw/
+
+# MLflow local (logs uniquement)
+mlruns/
+mlartifacts/
+
+# Développement local
+ci-cd-local.yml
+*.backup
+.DS_Store
+.vscode/
+
+.github/workflows/ci-cd local.yml
+.github/workflows/ci-cd.yml
+api/app_local.py
+api/app_production.py
+data/analysis/feature_importance_global.csv
+data/analysis/submission_baseline.csv
+data/analysis/submission_optimized.csv
+data/processed/correlations_fortes.csv
+data/processed/test_preprocessed.csv
+data/processed/train_preprocessed.csv
+models/baseline_hyperparameters.json
+notebooks/
+reports/
+start_project.bat
+streamlit_app.py
+streamlit_app_local.py
+visualizations/
