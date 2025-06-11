@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # URL API Railway
-API_URL = "https://web-production-api-credit-scoring-production.up.railway.app"
+API_URL = "https://reliable-vitality-production.up.railway.app"
 
 # Traductions des variables
 FEATURE_TRANSLATIONS = {
