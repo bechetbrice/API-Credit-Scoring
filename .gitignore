@@ -25,7 +25,6 @@ ci-cd-local.yml
 .github/workflows/ci-cd local.yml
 .github/workflows/ci-cd.yml
 api/app_local.py
-api/app_production.py
 data/analysis/feature_importance_global.csv
 data/analysis/submission_baseline.csv
 data/analysis/submission_optimized.csv
