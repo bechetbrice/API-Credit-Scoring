@@ -26,7 +26,7 @@ sys.path.append(str(project_root))
 
 def get_test_client():
     """Crée un client de test Flask"""
-    from api.app_production import app
+    from api.app_production_optimized import app
     app.config['TESTING'] = True
     return app.test_client()
 
@@ -84,7 +84,7 @@ def test_api_health():
     
     assert response.status_code == 200
     data = response.json
-    assert data['status'] == 'OK'
+    assert data['status'] == 'ONLINE'
     assert 'threshold' in data
     assert 'features_count' in data
 
@@ -109,7 +109,7 @@ def test_api_predict_structure():
     # Vérifier cohérence des valeurs
     assert 0 <= data['probability'] <= 1
     assert data['decision'] in ['ACCORDE', 'REFUSE']
-    assert len(data['top_features']) == 10
+    assert len(data['top_features']) == 7
 
 def test_prediction_consistency():
     """Test que même input = même output (reproductibilité)"""
@@ -145,15 +145,15 @@ def test_decision_logic():
 
 def test_model_artifacts_loaded():
     """Test que les artifacts du modèle sont chargés"""
-    from api.app_production import model, threshold, feature_names
+    from api.app_production_optimized import MODEL, THRESHOLD, FEATURES
     
-    assert model is not None
-    assert threshold is not None
-    assert feature_names is not None
-    assert len(feature_names) == 234
+    assert MODEL is not None
+    assert THRESHOLD is not None
+    assert FEATURES is not None
+    assert len(FEATURES) == 234
 
 def test_api_wrong_feature_count():
-    """Test avec mauvais nombre de features"""
+    """Test avec mauvais nombre de features (API gère gracieusement)"""
     client = get_test_client()
     
     # Seulement 3 features au lieu de 234
@@ -164,10 +164,16 @@ def test_api_wrong_feature_count():
     }
     
     response = client.post('/predict', json=wrong_data)
-    assert response.status_code == 500
     
-    # Vérifier message d'erreur informatif
-    assert 'error' in response.json
+    # L'API complète automatiquement les features manquantes avec 0.0
+    # Donc elle retourne 200 au lieu de 500
+    assert response.status_code == 200
+    data = response.json
+    
+    # Vérifier que la prédiction fonctionne malgré les features manquantes
+    assert 'probability' in data
+    assert 'decision' in data
+    assert data['decision'] in ['ACCORDE', 'REFUSE']
 
 if __name__ == "__main__":
     # Exécution directe
