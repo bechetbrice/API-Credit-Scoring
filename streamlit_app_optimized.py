@@ -236,12 +236,12 @@ st.markdown("---")
 st.subheader("Analyse crédit via Railway")
 
 # Instructions Railway
-st.info("**Conseil Railway**: Les premières requêtes peuvent être plus lentes (cold start). Soyez patient!")
+st.info("Les premières requêtes peuvent être plus lentes (cold start). Soyez patient!")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("**Scores externes (critiques)**")
+    st.markdown("**Scores externes**")
     ext_source_2 = st.slider("Score Externe 2", 0.0, 1.0, 0.6, 0.01, 
                              help="Score principal - Impact majeur sur la décision")
     ext_source_3 = st.slider("Score Externe 3", 0.0, 1.0, 0.5, 0.01,
@@ -289,39 +289,9 @@ with col2:
             display_railway_results(result, api_info)
         else:
             st.error("API Railway indisponible")
-            st.markdown("""
-            ### Solutions:
-            1. **Réessayer** dans 2-3 minutes (Railway peut être en cold start)
-            2. **Vérifier** votre connexion internet
-            3. **Contacter** l'administrateur si le problème persiste
-            """)
-
-# Guide Railway
-st.markdown("---")
-st.markdown("### Guide Railway")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("""
-    **Profil faible risque:**
-    - Score Externe 2 > 0.7
-    - Score Externe 3 > 0.6  
-    - Ancienneté > 3000 jours
-    - Aucun retard (0 jours)
-    """)
-
-with col2:
-    st.markdown("""
-    **Profil haut risque:**
-    - Scores externes < 0.3
-    - Emploi récent < 1000 jours
-    - Retards > 10 jours
-    - Ratio endettement > 0.5
-    """)
 
 # Footer Railway
 st.markdown("---")
 st.caption("API déployée sur Railway Cloud")
 st.caption("Optimisée pour performances en ligne")
-st.caption("Brice Béchet - Projet Credit Scoring - 2025")
+st.caption("Brice Béchet - Projet Credit Scoring - OpenclassRoom - Juin 2025")
